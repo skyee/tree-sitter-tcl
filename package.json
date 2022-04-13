@@ -1,0 +1,19 @@
+{
+  "name": "tree-sitter-tcl",
+  "version": "1.0.0",
+  "description": "A Tree-sitter grammar for Tcl",
+  "main": "bindings/node",
+  "scripts": {
+    "test": "tree-sitter generate && tree-sitter test"
+  },
+  "keywords": [
+    "tree-sitter",
+    "tcl"
+  ],
+  "author": "Cezary Drożak",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "nan": "^2.15.0",
+    "tree-sitter-cli": "^0.20.6"
+  }
+}

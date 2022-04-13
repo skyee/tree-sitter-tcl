@@ -1,0 +1,65 @@
+===
+Simple word
+===
+
+x
+
+---
+
+(source_file
+ (word
+  (word_content)))
+
+===
+Two words
+===
+
+a b
+
+---
+
+(source_file
+ (word
+  (word_content))
+ (word
+  (word_content)))
+
+===
+Substitution + word content
+===
+
+$a-test
+
+---
+
+(source_file
+ (word
+  (substitution)
+  (word_content)))
+
+===
+Word content + substitution 
+===
+
+test-$a
+
+---
+
+(source_file
+ (word
+  (word_content)
+  (substitution)))
+
+===
+Substitution + space
+===
+
+$a $b
+
+---
+
+(source_file
+ (word
+  (substitution))
+ (word
+  (substitution)))
