@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "lib": ["ES6"],
+    "checkJs": true,
+    "strict": true,
+    "baseUrl": ".",
+    "paths": {
+      "tree-sitter-dsl": ["types/tree-sitter-dsl.d.ts"]
+    },
+    "files": "grammar.js",
+    "types": ["tree-sitter-dsl"]
+  }
+}
