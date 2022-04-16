@@ -1,0 +1,184 @@
+===
+Basic syntax
+===
+
+expr 20 + 10
+
+expr 20+10
+
+---
+
+(source_file
+ (command
+  name: (word (word_content))
+  arguments: (word_list
+              (word (word_content))
+              (word (word_content))
+              (word (word_content))))
+ (command
+  name: (word (word_content))
+  arguments: (word_list
+              (word (word_content)))))
+
+===
+Variables
+===
+
+set x 32
+
+set x
+
+expr $x*3
+
+set cmd expr
+set x 11
+$cmd $x*$x
+
+---
+
+(source_file
+ (command
+  name: (word (word_content))
+  arguments: (word_list
+              (word (word_content))
+              (word (word_content))))
+
+ (command
+  name: (word (word_content))
+  arguments: (word_list (word (word_content))))
+
+ (command
+  name: (word (word_content))
+  arguments: (word_list
+              (word
+               (variable_substitution)
+               (word_content))))
+
+ (command
+  name: (word (word_content))
+  arguments: (word_list
+              (word (word_content))
+              (word (word_content))))
+ (command
+  name: (word (word_content))
+  arguments: (word_list
+              (word (word_content))
+              (word (word_content))))
+ (command
+  name: (word (variable_substitution))
+  arguments: (word_list
+              (word
+               (variable_substitution)
+               (word_content)
+               (variable_substitution)))))
+
+===
+Command substitution
+===
+
+set a 44
+set b [expr $a*4]
+
+---
+
+(source_file
+ (command
+  name: (word (word_content))
+  arguments: (word_list
+              (word (word_content))
+              (word (word_content))))
+ (command
+  name: (word (word_content))
+  arguments: (word_list
+              (word (word_content))
+              (word (command_substitution
+                     (command
+                      name: (word (word_content))
+                      arguments: (word_list
+                                  (word
+                                   (variable_substitution)
+                                   (word_content)))))))))
+
+===
+Quotes and braces
+===
+
+set x 24
+set y 18
+set z "$x + $y is [expr $x + $y]"
+
+set z {$x + $y is [expr $x + $y]}
+
+---
+
+
+(source_file
+ (command
+  name: (word (word_content))
+  arguments: (word_list
+              (word (word_content))
+              (word (word_content))))
+ (command
+  name: (word (word_content))
+  arguments: (word_list
+              (word (word_content))
+              (word (word_content))))
+ (command
+  name: (word (word_content))
+  arguments: (word_list
+              (word (word_content))
+              (quoted_word
+               (variable_substitution)
+               (word_content)
+               (variable_substitution)
+               (word_content)
+               (command_substitution
+                (command
+                 name: (word (word_content))
+                 arguments: (word_list
+                             (word (variable_substitution))
+                             (word (word_content))
+                             (word (variable_substitution))))))))
+
+ (command
+  name: (word (word_content))
+  arguments: (word_list
+              (word (word_content))
+              (braced_word (word_content)))))
+
+===
+Control structures
+===
+
+proc power {base p} {
+    set result 1
+    while {$p > 0} {
+        set result [expr $result * $base]
+        set p [expr $p - 1]
+    }
+    return $result
+}
+
+power 2 6
+power 1.15 5
+
+---
+
+(source_file
+ (command
+  name: (word (word_content))
+  arguments: (word_list
+              (word (word_content))
+              (braced_word (word_content))
+              (braced_word (word_content))))
+
+ (command
+  name: (word (word_content))
+  arguments: (word_list
+              (word (word_content))
+              (word (word_content))))
+ (command
+  name: (word (word_content))
+  arguments: (word_list
+              (word (word_content))
+              (word (word_content)))))

@@ -4,14 +4,71 @@
     "source_file": {
       "type": "REPEAT",
       "content": {
-        "type": "CHOICE",
+        "type": "SEQ",
         "members": [
           {
             "type": "SYMBOL",
-            "name": "word"
+            "name": "command"
+          },
+          {
+            "type": "STRING",
+            "value": "\n"
           }
         ]
       }
+    },
+    "command": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_word"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "arguments",
+              "content": {
+                "type": "SYMBOL",
+                "name": "word_list"
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "word_list": {
+      "type": "REPEAT1",
+      "content": {
+        "type": "SYMBOL",
+        "name": "_word"
+      }
+    },
+    "_word": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "word"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "quoted_word"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "braced_word"
+        }
+      ]
     },
     "word": {
       "type": "SEQ",
@@ -25,7 +82,11 @@
             },
             {
               "type": "SYMBOL",
-              "name": "substitution"
+              "name": "variable_substitution"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "command_substitution"
             }
           ]
         },
@@ -35,23 +96,149 @@
             "type": "CHOICE",
             "members": [
               {
-                "type": "SYMBOL",
-                "name": "_word_content_immediate"
+                "type": "ALIAS",
+                "content": {
+                  "type": "IMMEDIATE_TOKEN",
+                  "content": {
+                    "type": "PATTERN",
+                    "value": "[^$\\s\\[\\]\"]+"
+                  }
+                },
+                "named": true,
+                "value": "word_content"
               },
               {
-                "type": "SYMBOL",
-                "name": "_substitution_immediate"
+                "type": "ALIAS",
+                "content": {
+                  "type": "IMMEDIATE_TOKEN",
+                  "content": {
+                    "type": "SEQ",
+                    "members": [
+                      {
+                        "type": "STRING",
+                        "value": "$"
+                      },
+                      {
+                        "type": "PATTERN",
+                        "value": "[a-z]+"
+                      }
+                    ]
+                  }
+                },
+                "named": true,
+                "value": "variable_substitution"
               }
             ]
           }
         }
       ]
     },
+    "quoted_word": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "\""
+        },
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_quoted_word_content"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "variable_substitution"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "command_substitution"
+              }
+            ]
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "\""
+        }
+      ]
+    },
+    "braced_word": {
+      "type": "PREC",
+      "value": 2,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "{"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_braced_word_content"
+          },
+          {
+            "type": "STRING",
+            "value": "}"
+          }
+        ]
+      }
+    },
+    "command_substitution": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "["
+        },
+        {
+          "type": "SYMBOL",
+          "name": "command"
+        },
+        {
+          "type": "STRING",
+          "value": "]"
+        }
+      ]
+    },
     "word_content": {
       "type": "PATTERN",
-      "value": "[^$\\s]+"
+      "value": "[^$\\s\\[\\]\"]+"
     },
-    "substitution": {
+    "_quoted_word_content": {
+      "type": "ALIAS",
+      "content": {
+        "type": "PATTERN",
+        "value": "[^$\\[\\]\"]+"
+      },
+      "named": true,
+      "value": "word_content"
+    },
+    "_braced_word_content": {
+      "type": "ALIAS",
+      "content": {
+        "type": "REPEAT1",
+        "content": {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "PATTERN",
+              "value": "[^{}]+"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_braced_word_content"
+            }
+          ]
+        }
+      },
+      "named": true,
+      "value": "word_content"
+    },
+    "variable_substitution": {
       "type": "TOKEN",
       "content": {
         "type": "SEQ",
@@ -66,39 +253,6 @@
           }
         ]
       }
-    },
-    "_word_content_immediate": {
-      "type": "ALIAS",
-      "content": {
-        "type": "IMMEDIATE_TOKEN",
-        "content": {
-          "type": "PATTERN",
-          "value": "[^$\\s]+"
-        }
-      },
-      "named": true,
-      "value": "word_content"
-    },
-    "_substitution_immediate": {
-      "type": "ALIAS",
-      "content": {
-        "type": "IMMEDIATE_TOKEN",
-        "content": {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "$"
-            },
-            {
-              "type": "PATTERN",
-              "value": "[a-z]+"
-            }
-          ]
-        }
-      },
-      "named": true,
-      "value": "substitution"
     }
   },
   "extras": [
@@ -107,7 +261,11 @@
       "value": "\\s"
     }
   ],
-  "conflicts": [],
+  "conflicts": [
+    [
+      "_braced_word_content"
+    ]
+  ],
   "precedences": [],
   "externals": [],
   "inline": [],

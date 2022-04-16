@@ -7,8 +7,8 @@ x
 ---
 
 (source_file
- (word
-  (word_content)))
+ (command
+  name: (word (word_content))))
 
 ===
 Two words
@@ -19,10 +19,9 @@ a b
 ---
 
 (source_file
- (word
-  (word_content))
- (word
-  (word_content)))
+ (command
+  name: (word (word_content))
+  arguments: (word_list (word (word_content)))))
 
 ===
 Substitution + word content
@@ -33,12 +32,13 @@ $a-test
 ---
 
 (source_file
- (word
-  (substitution)
-  (word_content)))
+ (command
+  name: (word
+         (variable_substitution)
+         (word_content))))
 
 ===
-Word content + substitution 
+Word content + variable substitution
 ===
 
 test-$a
@@ -46,9 +46,10 @@ test-$a
 ---
 
 (source_file
- (word
-  (word_content)
-  (substitution)))
+ (command
+  name: (word
+         (word_content)
+         (variable_substitution))))
 
 ===
 Substitution + space
@@ -59,7 +60,38 @@ $a $b
 ---
 
 (source_file
- (word
-  (substitution))
- (word
-  (substitution)))
+ (command
+  name: (word (variable_substitution))
+  arguments: (word_list
+              (word (variable_substitution)))))
+
+===
+Simple string word
+===
+
+puts "Hello, world!"
+
+---
+
+(source_file
+ (command
+  name: (word (word_content))
+  arguments: (word_list
+              (quoted_word (word_content)))))
+
+===
+String word with variable substitution
+===
+
+puts "Hello, $name!"
+
+---
+
+(source_file
+ (command
+  name: (word (word_content))
+  arguments: (word_list
+              (quoted_word
+               (word_content)
+               (variable_substitution)
+               (word_content)))))
