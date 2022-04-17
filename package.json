@@ -12,7 +12,7 @@
   ],
   "author": "Cezary Drożak",
   "license": "Apache-2.0",
-  "repositories": {
+  "repository": {
     "type": "hg",
     "url": "https://hg.sr.ht/~cdrozak/tree-sitter-tcl"
   },
