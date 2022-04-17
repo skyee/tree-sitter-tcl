@@ -19,5 +19,14 @@
   "dependencies": {
     "nan": "^2.15.0",
     "tree-sitter-cli": "^0.20.6"
-  }
+  },
+  "tree-sitter": [
+    {
+      "scope": "source.tcl",
+      "file-types": [
+        "tcl"
+      ],
+      "injection-regex": "tcl"
+    }
+  ]
 }
