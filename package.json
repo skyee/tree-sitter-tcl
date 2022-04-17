@@ -1,6 +1,6 @@
 {
   "name": "tree-sitter-tcl",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "A Tree-sitter grammar for Tcl",
   "main": "bindings/node",
   "scripts": {
