@@ -1,5 +1,5 @@
-declare function grammar<TRules extends string>(
-  grammarDescription: GrammarDescription<TRules>,
+declare function grammar<TRules extends string, TExternalRules extends string>(
+  grammarDescription: GrammarDescription<TRules, TExternalRules>,
 ): any
 
 declare function alias(
@@ -19,29 +19,35 @@ declare namespace prec {
 declare function repeat(rule: Rule): RepeatRule
 declare function repeat1(rule: Rule): Repeat1Rule
 declare function seq(...rules: Rule[]): SequenceRule
-declare function sym(name: string): SymbolRule
+declare function sym<TName extends string>(name: TName): SymbolRule<TName>
 declare function token(rule: Rule): TokenRule
 declare namespace token {
   function immediate(rule: Rule): ImmediateTokenRule
 }
 
-interface GrammarDescription<TRules extends string> {
+interface GrammarDescription<
+  TRules extends string,
+  TExternalRules extends string
+> {
   name: string
+  externals?: ($: RuleProxy<string>) => SymbolRule<TExternalRules>[]
   conflicts?: (
     $: RuleProxy<TRules>,
     baseConflicts: SymbolRule[][],
   ) => SymbolRule[][]
-  rules: RuleDefinitions<TRules>
+  rules: RuleDefinitions<TRules, TExternalRules>
 }
 
-type RuleDefinitions<TRules extends string> = Record<
-  TRules,
-  RuleDefinition<TRules>
->
+type RuleDefinitions<
+  TRules extends string,
+  TExternalRules extends string
+> = Record<TRules, RuleDefinition<TRules | TExternalRules>>
 type RuleDefinition<TRules extends string> = ($: RuleProxy<TRules>) => Rule
 type RuleProxy<TRules extends string> = {
-  readonly [TRule in TRules]: SymbolRule
+  readonly [TRule in TRules]: SymbolRule<TRule>
 }
+
+type Test = typeof Proxy
 
 type Rule = string | RegExp | RuleObject
 type RuleObject =
@@ -126,9 +132,9 @@ interface SequenceRule {
   members: NormalizedRule[]
 }
 
-interface SymbolRule {
+interface SymbolRule<TName extends string = string> {
   type: 'SYMBOL'
-  name: string
+  name: TName
 }
 
 interface TokenRule {
