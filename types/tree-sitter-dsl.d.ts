@@ -30,11 +30,15 @@ interface GrammarDescription<
   TExternalRules extends string
 > {
   name: string
-  externals?: ($: RuleProxy<string>) => SymbolRule<TExternalRules>[]
+  externals?: ($: RuleProxy<string>) => (SymbolRule<TExternalRules> | string)[]
+  extras?: (
+    $: RuleProxy<TRules | TExternalRules>,
+    baseExtras: SymbolRule<TRules | TExternalRules>[],
+  ) => SymbolRule<TRules | TExternalRules>[]
   conflicts?: (
-    $: RuleProxy<TRules>,
-    baseConflicts: SymbolRule[][],
-  ) => SymbolRule[][]
+    $: RuleProxy<TRules | TExternalRules>,
+    baseConflicts: SymbolRule<TRules | TExternalRules>[][],
+  ) => SymbolRule<TRules | TExternalRules>[][]
   rules: RuleDefinitions<TRules, TExternalRules>
 }
 
