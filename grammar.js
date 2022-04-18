@@ -45,7 +45,12 @@ module.exports = grammar({
     braced_word: $ => $._braced_word,
     _braced_word: $ => seq('{', repeat(choice(/[^{}]+/, $._braced_word)), '}'),
 
-    command_substitution: $ => seq('[', $._command_or_comment, ']'),
+    command_substitution: $ =>
+      seq(
+        '[',
+        seq($._command_or_comment, repeat(seq('\n', $._command_or_comment))),
+        ']',
+      ),
 
     word_content: _ => /[^$\s\[\]{}"]+/,
     _quoted_word_content: $ => alias(/[^$\[\]"]+/, $.word_content),

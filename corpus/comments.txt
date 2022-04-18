@@ -13,3 +13,25 @@ puts "Hello, world!"
   name: (word (word_content))
   arguments: (word_list
               (quoted_word (word_content)))))
+
+===
+A comment inside command substitution
+===
+
+set a [# test]
+expr 2+2]
+
+---
+
+(source_file
+ (command
+  name: (word (word_content))
+  arguments: (word_list
+              (word (word_content))
+              (word
+              (command_substitution
+               (comment)
+               (command
+                name: (word (word_content))
+                arguments: (word_list
+                            (word (word_content)))))))))

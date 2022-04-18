@@ -226,8 +226,29 @@
           "value": "["
         },
         {
-          "type": "SYMBOL",
-          "name": "_command_or_comment"
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_command_or_comment"
+            },
+            {
+              "type": "REPEAT",
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": "\n"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "_command_or_comment"
+                  }
+                ]
+              }
+            }
+          ]
         },
         {
           "type": "STRING",
