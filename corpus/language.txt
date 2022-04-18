@@ -144,7 +144,7 @@ set z {$x + $y is [expr $x + $y]}
   name: (word (word_content))
   arguments: (word_list
               (word (word_content))
-              (braced_word (word_content)))))
+              (braced_word))))
 
 ===
 Control structures
@@ -169,8 +169,8 @@ power 1.15 5
   name: (word (word_content))
   arguments: (word_list
               (word (word_content))
-              (braced_word (word_content))
-              (braced_word (word_content))))
+              (braced_word)
+              (braced_word)))
 
  (command
   name: (word (word_content))

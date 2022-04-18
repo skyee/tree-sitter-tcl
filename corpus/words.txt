@@ -95,3 +95,17 @@ puts "Hello, $name!"
                (word_content)
                (variable_substitution)
                (word_content)))))
+
+===
+Braced word
+===
+
+puts {expr 2+2}
+
+---
+
+(source_file
+ (command
+  name: (word (word_content))
+  arguments: (word_list
+              (braced_word))))

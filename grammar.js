@@ -1,4 +1,4 @@
-const WORD_CONTENT = /[^$\s\[\]"]+/
+const WORD_CONTENT = /[^$\s\[\]{}"]+/
 const QUOTED_WORD_CONTENT = /[^$\[\]"]+/
 const BRACED_WORD_CONTENT = /[^{}]+/
 const VARIABLE_SUBSTITUTION = seq('$', /[a-z]+/)
@@ -6,7 +6,6 @@ const VARIABLE_SUBSTITUTION = seq('$', /[a-z]+/)
 module.exports = grammar({
   name: 'tcl',
 
-  conflicts: ($, original) => [...original, [$._braced_word_content]],
 
   rules: {
     source_file: $ => repeat(seq($.command, '\n')),
@@ -45,17 +44,16 @@ module.exports = grammar({
         '"',
       ),
 
-    braced_word: $ => prec(2, seq('{', $._braced_word_content, '}')),
+    braced_word: $ => $._braced_word,
+    _braced_word: $ =>
+      seq('{', repeat(choice(BRACED_WORD_CONTENT, $._braced_word)), '}'),
 
     command_substitution: $ => seq('[', $.command, ']'),
 
     word_content: _ => WORD_CONTENT,
     _quoted_word_content: $ => alias(QUOTED_WORD_CONTENT, $.word_content),
     _braced_word_content: $ =>
-      alias(
-        repeat1(choice(BRACED_WORD_CONTENT, $._braced_word_content)),
-        $.word_content,
-      ),
+      repeat1(choice(BRACED_WORD_CONTENT, $._braced_word_content)),
     variable_substitution: _ => token(VARIABLE_SUBSTITUTION),
   },
 })

@@ -101,7 +101,7 @@
                   "type": "IMMEDIATE_TOKEN",
                   "content": {
                     "type": "PATTERN",
-                    "value": "[^$\\s\\[\\]\"]+"
+                    "value": "[^$\\s\\[\\]{}\"]+"
                   }
                 },
                 "named": true,
@@ -167,25 +167,37 @@
       ]
     },
     "braced_word": {
-      "type": "PREC",
-      "value": 2,
-      "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "STRING",
-            "value": "{"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "_braced_word_content"
-          },
-          {
-            "type": "STRING",
-            "value": "}"
+      "type": "SYMBOL",
+      "name": "_braced_word"
+    },
+    "_braced_word": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "{"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "PATTERN",
+                "value": "[^{}]+"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_braced_word"
+              }
+            ]
           }
-        ]
-      }
+        },
+        {
+          "type": "STRING",
+          "value": "}"
+        }
+      ]
     },
     "command_substitution": {
       "type": "SEQ",
@@ -206,7 +218,7 @@
     },
     "word_content": {
       "type": "PATTERN",
-      "value": "[^$\\s\\[\\]\"]+"
+      "value": "[^$\\s\\[\\]{}\"]+"
     },
     "_quoted_word_content": {
       "type": "ALIAS",
@@ -218,25 +230,20 @@
       "value": "word_content"
     },
     "_braced_word_content": {
-      "type": "ALIAS",
+      "type": "REPEAT1",
       "content": {
-        "type": "REPEAT1",
-        "content": {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "PATTERN",
-              "value": "[^{}]+"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "_braced_word_content"
-            }
-          ]
-        }
-      },
-      "named": true,
-      "value": "word_content"
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "PATTERN",
+            "value": "[^{}]+"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_braced_word_content"
+          }
+        ]
+      }
     },
     "variable_substitution": {
       "type": "TOKEN",
@@ -261,11 +268,7 @@
       "value": "\\s"
     }
   ],
-  "conflicts": [
-    [
-      "_braced_word_content"
-    ]
-  ],
+  "conflicts": [],
   "precedences": [],
   "externals": [],
   "inline": [],
