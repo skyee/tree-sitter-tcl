@@ -1,0 +1,15 @@
+===
+Full line comment
+===
+
+# This command prints "Hello, world!"
+puts "Hello, world!"
+
+---
+
+(source_file
+ (comment)
+ (command
+  name: (word (word_content))
+  arguments: (word_list
+              (quoted_word (word_content)))))
