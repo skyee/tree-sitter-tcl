@@ -8,7 +8,7 @@
         "members": [
           {
             "type": "SYMBOL",
-            "name": "command"
+            "name": "_command_or_comment"
           },
           {
             "type": "STRING",
@@ -16,6 +16,23 @@
           }
         ]
       }
+    },
+    "_command_or_comment": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "comment"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "command"
+        }
+      ]
+    },
+    "comment": {
+      "type": "PATTERN",
+      "value": "#[^\\n]+"
     },
     "command": {
       "type": "SEQ",
@@ -210,7 +227,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "command"
+          "name": "_command_or_comment"
         },
         {
           "type": "STRING",

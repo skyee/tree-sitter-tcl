@@ -1,10 +1,15 @@
 module.exports = grammar({
   name: 'tcl',
 
+  /** @param {RuleProxy<'_concat'>} _ */
   externals: _ => [sym('_concat')],
 
   rules: {
-    source_file: $ => repeat(seq($.command, '\n')),
+    source_file: $ => repeat(seq($._command_or_comment, '\n')),
+
+    _command_or_comment: $ => choice($.comment, $.command),
+
+    comment: _ => /#[^\n]+/,
 
     command: $ =>
       seq(field('name', $._word), optional(field('arguments', $.word_list))),
@@ -40,7 +45,7 @@ module.exports = grammar({
     braced_word: $ => $._braced_word,
     _braced_word: $ => seq('{', repeat(choice(/[^{}]+/, $._braced_word)), '}'),
 
-    command_substitution: $ => seq('[', $.command, ']'),
+    command_substitution: $ => seq('[', $._command_or_comment, ']'),
 
     word_content: _ => /[^$\s\[\]{}"]+/,
     _quoted_word_content: $ => alias(/[^$\[\]"]+/, $.word_content),

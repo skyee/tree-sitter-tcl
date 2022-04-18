@@ -49,6 +49,10 @@
         {
           "type": "command",
           "named": true
+        },
+        {
+          "type": "comment",
+          "named": true
         }
       ]
     }
@@ -86,6 +90,10 @@
       "types": [
         {
           "type": "command",
+          "named": true
+        },
+        {
+          "type": "comment",
           "named": true
         }
       ]
@@ -152,6 +160,10 @@
   {
     "type": "]",
     "named": false
+  },
+  {
+    "type": "comment",
+    "named": true
   },
   {
     "type": "variable_substitution",
