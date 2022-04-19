@@ -1,4 +1,5 @@
 ^node_modules/
+^target/
 ^tcl(sh)?/src/grammar.json$
 ^tcl(sh)?/src/node-types.json$
 ^tcl(sh)?/src/parser.c$
