@@ -4,6 +4,7 @@
     "lib": ["ES6"],
     "checkJs": true,
     "strict": true,
+    "resolveJsonModule": true,
     "baseUrl": ".",
     "paths": {
       "tree-sitter-dsl": ["types/tree-sitter-dsl.d.ts"]
