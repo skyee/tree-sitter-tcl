@@ -8,8 +8,8 @@
       ],
       "sources": [
         "bindings/node/binding.cc",
-        "src/parser.c",
-        "src/scanner.c",
+        "tcl/src/parser.c",
+        "tcl/src/scanner.c",
       ],
       "cflags_c": [
         "-std=c99",
