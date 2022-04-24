@@ -1,3 +1,25 @@
+/**
+ *  Create a sequence where between every rule, an `insertedRule` is inserted.
+ *  `rule` needs to appear in the sequence at least once.
+ *
+ *  @param {Rule} insertedRule
+ *  @param {Rule} rule
+ *  @returns {SequenceRule}
+ */
+const interleavedSeq1 = (rule, insertedRule) =>
+  seq(rule, repeat(seq(insertedRule, rule)))
+
+/**
+ *  Create a sequence where between every rule, an `insertedRule` is inserted.
+ *  `rule` needs to appear in the sequence at least two times.
+ *
+ *  @param {Rule} insertedRule
+ *  @param {Rule} rule
+ *  @returns {SequenceRule}
+ */
+const interleavedSeq2 = (rule, insertedRule) =>
+  seq(rule, repeat1(seq(insertedRule, rule)))
+
 module.exports = grammar({
   name: 'tcl',
 
@@ -21,13 +43,13 @@ module.exports = grammar({
     word: $ =>
       choice(
         choice($.word_content, $.variable_substitution, $.command_substitution),
-        seq(
+        interleavedSeq2(
           choice($.word_content, $.variable_substitution),
-          repeat1(
-            seq($._concat, choice($.word_content, $.variable_substitution)),
-          ),
+          $._concat,
         ),
       ),
+    word_content: _ => /[^$\s\[\]{}"]+/,
+    variable_substitution: _ => token(seq('$', /[a-z]+/)),
 
     quoted_word: $ =>
       seq(
@@ -41,19 +63,12 @@ module.exports = grammar({
         ),
         '"',
       ),
+    _quoted_word_content: $ => alias(/[^$\[\]"]+/, $.word_content),
 
     braced_word: $ => $._braced_word,
     _braced_word: $ => seq('{', repeat(choice(/[^{}]+/, $._braced_word)), '}'),
 
     command_substitution: $ =>
-      seq(
-        '[',
-        seq($._command_or_comment, repeat(seq('\n', $._command_or_comment))),
-        ']',
-      ),
-
-    word_content: _ => /[^$\s\[\]{}"]+/,
-    _quoted_word_content: $ => alias(/[^$\[\]"]+/, $.word_content),
-    variable_substitution: _ => token(seq('$', /[a-z]+/)),
+      seq('[', interleavedSeq1($._command_or_comment, '\n'), ']'),
   },
 })
