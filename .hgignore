@@ -6,4 +6,4 @@
 ^tcl(sh)?/src/tree_sitter/parser.h$
 
 (^|/).cache/
-(^|/).compile_commands.json$
+(^|/)compile_commands.json$
