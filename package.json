@@ -4,10 +4,12 @@
   "description": "A Tree-sitter grammar for Tcl",
   "main": "bindings/node",
   "scripts": {
-    "generate": "npm run generate-tcl",
+    "generate": "npm run generate-tcl && npm run generate-tclsh",
     "generate-tcl": "cd tcl && tree-sitter generate --no-bindings",
-    "test": "npm run test-tcl",
-    "test-tcl": "npm run generate-tcl && cd tcl && tree-sitter test"
+    "generate-tclsh": "cd tclsh && tree-sitter generate --no-bindings",
+    "test": "npm run test-tcl && npm run test-tclsh",
+    "test-tcl": "npm run generate-tcl && cd tcl && tree-sitter test",
+    "test-tclsh": "npm run generate-tclsh && cd tclsh && tree-sitter test"
   },
   "keywords": [
     "tree-sitter",
@@ -27,9 +29,9 @@
     {
       "scope": "source.tcl",
       "file-types": [
-        "tcl"
+        "tclsh"
       ],
-      "injection-regex": "tcl"
+      "injection-regex": "tclsh"
     }
   ]
 }

@@ -5,22 +5,31 @@
 using namespace v8;
 
 extern "C" TSLanguage * tree_sitter_tcl();
+extern "C" TSLanguage * tree_sitter_tclsh();
 
 namespace {
 
 NAN_METHOD(New) {}
 
 void Init(Local<Object> exports, Local<Object> module) {
-  Local<FunctionTemplate> tpl = Nan::New<FunctionTemplate>(New);
-  tpl->SetClassName(Nan::New("Language").ToLocalChecked());
-  tpl->InstanceTemplate()->SetInternalFieldCount(1);
+  Local<FunctionTemplate> tcl_template = Nan::New<FunctionTemplate>(New);
+  tcl_template->SetClassName(Nan::New("Language").ToLocalChecked());
+  tcl_template->InstanceTemplate()->SetInternalFieldCount(1);
+  Local<Function> tcl_constructor = Nan::GetFunction(tcl_template).ToLocalChecked();
+  Local<Object> tcl_instance = tcl_constructor->NewInstance(Nan::GetCurrentContext()).ToLocalChecked();
+  Nan::SetInternalFieldPointer(tcl_instance, 0, tree_sitter_tcl());
+  Nan::Set(tcl_instance, Nan::New("name").ToLocalChecked(), Nan::New("tcl").ToLocalChecked());
 
-  Local<Function> constructor = Nan::GetFunction(tpl).ToLocalChecked();
-  Local<Object> instance = constructor->NewInstance(Nan::GetCurrentContext()).ToLocalChecked();
-  Nan::SetInternalFieldPointer(instance, 0, tree_sitter_tcl());
+  Local<FunctionTemplate> tclsh_template = Nan::New<FunctionTemplate>(New);
+  tclsh_template->SetClassName(Nan::New("Language").ToLocalChecked());
+  tclsh_template->InstanceTemplate()->SetInternalFieldCount(1);
+  Local<Function> tclsh_constructor = Nan::GetFunction(tclsh_template).ToLocalChecked();
+  Local<Object> tclsh_instance = tclsh_constructor->NewInstance(Nan::GetCurrentContext()).ToLocalChecked();
+  Nan::SetInternalFieldPointer(tclsh_instance, 0, tree_sitter_tclsh());
+  Nan::Set(tclsh_instance, Nan::New("name").ToLocalChecked(), Nan::New("tclsh").ToLocalChecked());
 
-  Nan::Set(instance, Nan::New("name").ToLocalChecked(), Nan::New("tcl").ToLocalChecked());
-  Nan::Set(module, Nan::New("exports").ToLocalChecked(), instance);
+  Nan::Set(module, Nan::New("tcl").ToLocalChecked(), tcl_instance);
+  Nan::Set(module, Nan::New("tclsh").ToLocalChecked(), tclsh_instance);
 }
 
 NODE_MODULE(tree_sitter_tcl_binding, Init)

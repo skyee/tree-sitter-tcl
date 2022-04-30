@@ -16,4 +16,5 @@ try {
 
 try {
   module.exports.tcl.nodeTypeInfo = require('../../tcl/src/node-types.json')
+  module.exports.tclsh.nodeTypeInfo = require('../../tclsh/src/node-types.json')
 } catch (_) {}

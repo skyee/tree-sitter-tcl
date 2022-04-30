@@ -1,0 +1,32 @@
+===
+Very simple if statement
+===
+
+if true {
+    puts True
+}
+
+---
+
+(source_file
+ (if_command
+  condition: (word (word_content))
+  body: (braced_word)))
+
+===
+Simple if statement
+===
+
+if {true} {
+    puts True
+} else {
+    puts False
+}
+
+---
+
+(source_file
+ (if_command
+  condition: (braced_word)
+  body: (braced_word)
+  else_body: (braced_word)))
