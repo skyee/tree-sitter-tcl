@@ -4,3 +4,6 @@
 ^tcl(sh)?/src/node-types.json$
 ^tcl(sh)?/src/parser.c$
 ^tcl(sh)?/src/tree_sitter/parser.h$
+
+(^|/).cache/
+(^|/).compile_commands.json$
