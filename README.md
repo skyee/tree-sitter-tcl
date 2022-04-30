@@ -3,6 +3,13 @@
 Tree-sitter grammar for Tcl language.
 
 
+## Generating
+
+The recommended way to generate grammar is to use `make`, `make all` or `make
+generate`. They all do the same. There is also possibility to use NPM target,
+but it is slower — `npm run generate`.
+
+
 ## Credits
 
 * Handling of word concatenation was inspired by [tree-sitter-bash]. I didn't
