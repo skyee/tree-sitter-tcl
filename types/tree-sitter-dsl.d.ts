@@ -1,6 +1,10 @@
 declare function grammar<TRules extends string, TExternalRules extends string>(
+  baseGrammar: Grammar,
   grammarDescription: GrammarDescription<TRules, TExternalRules>,
-): any
+): Grammar
+declare function grammar<TRules extends string, TExternalRules extends string>(
+  grammarDescription: GrammarDescription<TRules, TExternalRules>,
+): Grammar
 
 declare function alias(
   rule: Rule,
@@ -23,6 +27,18 @@ declare function sym<TName extends string>(name: TName): SymbolRule<TName>
 declare function token(rule: Rule): TokenRule
 declare namespace token {
   function immediate(rule: Rule): ImmediateTokenRule
+}
+
+interface Grammar {
+  name: string,
+  word: string,
+  rules: NormalizedRule[],
+  extras: NormalizedRule[],
+  conflicts: string[][],
+  precedences: NormalizedRule[][],
+  externals: NormalizedRule[],
+  inline: string[],
+  supertypes: string[],
 }
 
 interface GrammarDescription<
