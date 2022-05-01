@@ -33,3 +33,37 @@ if {true} {
    body: (braced_word))
   (else_clause
    body: (braced_word))))
+
+===
+If statement with elseif
+===
+
+set x 1
+
+if {$x == 1} {
+    puts One
+} elseif {$x == 2} {
+    puts Two
+} else {
+    puts Other
+}
+
+---
+
+(source_file
+ (command
+  name: (word (word_content))
+  arguments: (word_list
+              (word (word_content))
+              (word (word_content))))
+
+
+ (if_command
+  (if_clause
+   condition: (braced_word)
+   body: (braced_word))
+  (elseif_clause
+   condition: (braced_word)
+   body: (braced_word))
+  (else_clause
+   body: (braced_word))))
