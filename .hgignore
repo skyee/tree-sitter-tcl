@@ -1,6 +1,7 @@
 ^build/
 ^node_modules/
 ^target/
+^tcl(sh)?/tree-sitter-tcl(sh)?.wasm$
 ^tcl(sh)?/src/grammar.json$
 ^tcl(sh)?/src/node-types.json$
 ^tcl(sh)?/src/parser.c$
