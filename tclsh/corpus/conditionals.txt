@@ -10,8 +10,9 @@ if true {
 
 (source_file
  (if_command
-  condition: (word (word_content))
-  body: (braced_word)))
+  (if_clause
+   condition: (word (word_content))
+   body: (braced_word))))
 
 ===
 Simple if statement
@@ -27,6 +28,8 @@ if {true} {
 
 (source_file
  (if_command
-  condition: (braced_word)
-  body: (braced_word)
-  else_body: (braced_word)))
+  (if_clause
+   condition: (braced_word)
+   body: (braced_word))
+  (else_clause
+   body: (braced_word))))

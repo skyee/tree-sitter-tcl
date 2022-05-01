@@ -7,14 +7,16 @@ module.exports = grammar(tclGrammar, {
 
     _builtin_command: $ => choice($.if_command),
 
-    if_command: $ =>
+    if_command: $ => seq($.if_clause, optional($.else_clause)),
+
+    if_clause: $ =>
       seq(
         'if',
         field('condition', $._word),
         optional('then'),
         field('body', $.braced_word),
-        optional('else'),
-        optional(field('else_body', $.braced_word)),
       ),
+
+    else_clause: $ => seq(optional('else'), field('body', $.braced_word)),
   },
 })
