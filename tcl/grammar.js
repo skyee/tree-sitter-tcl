@@ -1,24 +1,4 @@
-/**
- *  Create a sequence where between every rule, an `insertedRule` is inserted.
- *  `rule` needs to appear in the sequence at least once.
- *
- *  @param {Rule} insertedRule
- *  @param {Rule} rule
- *  @returns {SequenceRule}
- */
-const interleavedSeq1 = (rule, insertedRule) =>
-  seq(rule, repeat(seq(insertedRule, rule)))
-
-/**
- *  Create a sequence where between every rule, an `insertedRule` is inserted.
- *  `rule` needs to appear in the sequence at least two times.
- *
- *  @param {Rule} insertedRule
- *  @param {Rule} rule
- *  @returns {SequenceRule}
- */
-const interleavedSeq2 = (rule, insertedRule) =>
-  seq(rule, repeat1(seq(insertedRule, rule)))
+const { interleavedSeq1, interleavedSeq2 } = require('../common/util')
 
 module.exports = grammar({
   name: 'tcl',
