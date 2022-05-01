@@ -44,6 +44,8 @@ if {$x == 1} {
     puts One
 } elseif {$x == 2} {
     puts Two
+} elseif {$x == 3} {
+    puts Three
 } else {
     puts Other
 }
@@ -60,6 +62,9 @@ if {$x == 1} {
 
  (if_command
   (if_clause
+   condition: (braced_word)
+   body: (braced_word))
+  (elseif_clause
    condition: (braced_word)
    body: (braced_word))
   (elseif_clause
