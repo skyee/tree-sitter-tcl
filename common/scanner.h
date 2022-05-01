@@ -13,6 +13,10 @@ static bool is_whitespace_ahead(TSLexer *lexer) {
     return iswspace(lexer->lookahead);
 }
 
+static bool is_closing_brace_ahead(TSLexer *lexer) {
+    return lexer->lookahead == '}';
+}
+
 static bool is_closing_bracket_ahead(TSLexer *lexer) {
     return lexer->lookahead == ']';
 }
@@ -21,6 +25,7 @@ static bool is_concat_valid(TSLexer *lexer) {
     return !(
         is_end_of_file_ahead(lexer)
         || is_whitespace_ahead(lexer)
+        || is_closing_brace_ahead(lexer)
         || is_closing_bracket_ahead(lexer)
     );
 }
