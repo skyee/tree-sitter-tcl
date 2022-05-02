@@ -13,9 +13,9 @@ unsigned tree_sitter_tcl_external_scanner_serialize(void *p, char *buffer) {
 }
 
 void tree_sitter_tcl_external_scanner_deserialize(
-  void *p,
-  const char *b,
-  unsigned n
+    void *payload,
+    const char *state,
+    unsigned length
 ) {}
 
 bool tree_sitter_tcl_external_scanner_scan(
