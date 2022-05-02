@@ -12,7 +12,9 @@ if true {
  (if_command
   (if_clause
    condition: (word (word_content))
-   body: (braced_word))))
+   body: (braced_word
+          (word (word_content))
+          (word (word_content))))))
 
 ===
 Simple if statement
@@ -29,10 +31,14 @@ if {true} {
 (source_file
  (if_command
   (if_clause
-   condition: (braced_word)
-   body: (braced_word))
+   condition: (braced_word (word (word_content)))
+   body: (braced_word
+          (word (word_content))
+          (word (word_content))))
   (else_clause
-   body: (braced_word))))
+   body: (braced_word
+          (word (word_content))
+          (word (word_content))))))
 
 ===
 If statement with elseif
@@ -62,13 +68,30 @@ if {$x == 1} {
 
  (if_command
   (if_clause
-   condition: (braced_word)
-   body: (braced_word))
+   condition: (braced_word
+               (word (variable_substitution))
+               (word (word_content))
+               (word (word_content)))
+   body: (braced_word
+          (word (word_content))
+          (word (word_content))))
   (elseif_clause
-   condition: (braced_word)
-   body: (braced_word))
+   condition: (braced_word
+               (word (variable_substitution))
+               (word (word_content))
+               (word (word_content)))
+   body: (braced_word
+          (word (word_content))
+          (word (word_content))))
   (elseif_clause
-   condition: (braced_word)
-   body: (braced_word))
+   condition: (braced_word
+               (word (variable_substitution))
+               (word (word_content))
+               (word (word_content)))
+   body: (braced_word
+          (word (word_content))
+          (word (word_content))))
   (else_clause
-   body: (braced_word))))
+   body: (braced_word
+          (word (word_content))
+          (word (word_content))))))
