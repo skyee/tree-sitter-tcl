@@ -145,7 +145,18 @@ set z {$x + $y is [expr $x + $y]}
   name: (word (word_content))
   arguments: (word_list
               (word (word_content))
-              (braced_word))))
+              (braced_word
+               (word (variable_substitution))
+               (word (word_content))
+               (word (variable_substitution))
+               (word (word_content))
+               (word (command_substitution
+                      (command
+                       name: (word (word_content))
+                       arguments: (word_list
+                                   (word (variable_substitution))
+                                   (word (word_content))
+                                   (word (variable_substitution))))))))))
 
 ===
 Control structures
@@ -170,8 +181,41 @@ power 1.15 5
   name: (word (word_content))
   arguments: (word_list
               (word (word_content))
-              (braced_word)
-              (braced_word)))
+              (braced_word
+               (word (word_content))
+               (word (word_content)))
+              (braced_word
+               (word (word_content))
+               (word (word_content))
+               (word (word_content))
+               (word (word_content))
+               (braced_word
+                (word (variable_substitution))
+                (word (word_content))
+                (word (word_content)))
+               (braced_word
+                (word (word_content))
+                (word (word_content))
+                (word
+                 (command_substitution
+                  (command
+                   name: (word (word_content))
+                   arguments: (word_list
+                               (word (variable_substitution))
+                               (word (word_content))
+                               (word (variable_substitution))))))
+                (word (word_content))
+                (word (word_content))
+                (word
+                 (command_substitution
+                  (command
+                   name: (word (word_content))
+                   arguments: (word_list
+                               (word (variable_substitution))
+                               (word (word_content))
+                               (word (word_content)))))))
+               (word (word_content))
+               (word (variable_substitution)))))
 
  (command
   name: (word (word_content))

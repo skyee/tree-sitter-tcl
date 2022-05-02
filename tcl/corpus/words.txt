@@ -108,4 +108,6 @@ puts {expr 2+2}
  (command
   name: (word (word_content))
   arguments: (word_list
-              (braced_word))))
+              (braced_word
+               (word (word_content))
+               (word (word_content))))))
