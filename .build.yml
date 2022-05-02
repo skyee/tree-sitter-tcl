@@ -1,5 +1,6 @@
 image: alpine/edge
 packages:
+  - nodejs
   - tree-sitter-cli
 tasks:
   - test: |
