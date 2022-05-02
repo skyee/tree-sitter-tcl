@@ -1,3 +1,5 @@
+TREE_SITTER ?= tree-sitter
+
 common_sources := common/scanner.h
 
 tcl_sources := \
@@ -33,17 +35,17 @@ test: test-tcl test-tclsh
 .PHONY: generate-tcl
 generate-tcl: $(tcl_generated)
 $(tcl_generated): $(common_sources) $(tcl_sources)
-	cd tcl && npx tree-sitter generate --no-bindings
+	cd tcl && $(TREE_SITTER) generate --no-bindings
 
 .PHONY: generate-tclsh
 generate-tclsh: $(tclsh_generated)
 $(tclsh_generated): $(common_sources) $(tclsh_sources)
-	cd tclsh && npx tree-sitter generate --no-bindings
+	cd tclsh && $(TREE_SITTER) generate --no-bindings
 
 .PHONY: test-tcl
 test-tcl: $(tcl_generated)
-	cd tcl && npx tree-sitter test
+	cd tcl && $(TREE_SITTER) test
 
 .PHONY: test-tclsh
 test-tclsh: $(tclsh_generated)
-	cd tclsh && npx tree-sitter test
+	cd tclsh && $(TREE_SITTER) test
