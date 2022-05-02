@@ -1,0 +1,15 @@
+===
+Empty file
+===
+---
+
+(source_file)
+
+===
+File with empty lines only
+===
+
+
+---
+
+(source_file)
