@@ -3,13 +3,17 @@ const { interleavedSeq1, interleavedSeq2 } = require('../common/util')
 module.exports = grammar({
   name: 'tcl',
 
-  /** @param {RuleProxy<'_concat'>} _ */
-  externals: _ => [sym('_concat')],
+  /** @param {RuleProxy<'_concat' | '_eof'>} $ */
+  externals: $ => [$._concat, $._eof],
+
+  inline: $ => [$._terminator],
 
   rules: {
-    source_file: $ => repeat(seq($._command_or_comment, '\n')),
+    source_file: $ => repeat(seq($._command_or_comment, $._terminator)),
 
     _command_or_comment: $ => choice($.comment, $.command),
+
+    _terminator: $ => choice('\n', $._eof),
 
     comment: _ => /#[^\n]+/,
 
@@ -30,7 +34,9 @@ module.exports = grammar({
 
     concatenation: $ =>
       interleavedSeq2(choice($.word, $.variable_substitution), $._concat),
+
     word: _ => /[^$\s\[\]{}"]+/,
+
     variable_substitution: _ => token(seq('$', /[a-z]+/)),
 
     quoted_word: $ =>

@@ -30,15 +30,15 @@ declare namespace token {
 }
 
 interface Grammar {
-  name: string,
-  word: string,
-  rules: NormalizedRule[],
-  extras: NormalizedRule[],
-  conflicts: string[][],
-  precedences: NormalizedRule[][],
-  externals: NormalizedRule[],
-  inline: string[],
-  supertypes: string[],
+  name: string
+  word: string
+  rules: NormalizedRule[]
+  extras: NormalizedRule[]
+  conflicts: string[][]
+  precedences: NormalizedRule[][]
+  externals: NormalizedRule[]
+  inline: string[]
+  supertypes: string[]
 }
 
 interface GrammarDescription<
@@ -47,6 +47,9 @@ interface GrammarDescription<
 > {
   name: string
   externals?: ($: RuleProxy<string>) => (SymbolRule<TExternalRules> | string)[]
+  inline?: (
+    $: RuleProxy<TRules | TExternalRules>,
+  ) => (SymbolRule<TRules | TExternalRules> | string)[]
   extras?: (
     $: RuleProxy<TRules | TExternalRules>,
     baseExtras: SymbolRule<TRules | TExternalRules>[],

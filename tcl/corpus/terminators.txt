@@ -1,0 +1,11 @@
+===
+No final newline
+===
+
+puts "You're not gonna parse THIS"
+---
+
+(source_file
+ (command
+  name: (word)
+  arguments: (word_list (quoted_word))))
