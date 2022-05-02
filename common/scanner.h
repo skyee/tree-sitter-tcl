@@ -3,7 +3,6 @@
 
 enum TokenType {
     CONCAT,
-    EOF,
 };
 
 static bool is_end_of_file_ahead(TSLexer *lexer) {
@@ -36,11 +35,6 @@ static inline bool external_scanner_scan(
 ) {
     if (valid_symbols[CONCAT] && is_concat_valid(lexer)) {
         lexer->result_symbol = CONCAT;
-        return true;
-    }
-
-    if (valid_symbols[EOF] && is_end_of_file_ahead(lexer)) {
-        lexer->result_symbol = EOF;
         return true;
     }
 

@@ -7,8 +7,8 @@ const {
 module.exports = grammar({
   name: 'tcl',
 
-  /** @param {RuleProxy<'_concat' | '_eof'>} $ */
-  externals: $ => [$._concat, $._eof],
+  /** @param {RuleProxy<'_concat'>} $ */
+  externals: $ => [$._concat],
 
   inline: $ => [$._terminator],
 
@@ -19,7 +19,7 @@ module.exports = grammar({
 
     _statement: $ => choice($.comment, $.command),
 
-    _terminator: $ => choice('\n', ';', $._eof),
+    _terminator: _ => choice('\n', ';'),
 
     comment: _ => /#[^\n]+/,
 
