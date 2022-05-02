@@ -29,9 +29,14 @@
     {
       "scope": "source.tcl",
       "file-types": [
-        "tclsh"
+        "tcl"
       ],
-      "injection-regex": "tclsh"
+      "injection-regex": "tcl",
+      "first-line-regex": "#!(/usr/bin/tclsh|/bin/tclsh|/usr/bin/env tclsh)",
+      "path": "tclsh",
+      "highlights": [
+        "tclsh/queries/highlights.scm"
+      ]
     }
   ]
 }

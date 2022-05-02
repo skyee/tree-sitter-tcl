@@ -30,7 +30,7 @@ all: generate
 generate: generate-tcl generate-tclsh
 
 .PHONY: test
-test: test-tcl test-tclsh
+test: test-tcl test-tclsh test-highlight
 
 .PHONY: generate-tcl
 generate-tcl: $(tcl_generated)
@@ -49,3 +49,8 @@ test-tcl: $(tcl_generated)
 .PHONY: test-tclsh
 test-tclsh: $(tclsh_generated)
 	cd tclsh && $(TREE_SITTER) test
+
+.PHONY: test-highlight
+test-highlight: $(tclsh_generated)
+	$(TREE_SITTER) test
+	
