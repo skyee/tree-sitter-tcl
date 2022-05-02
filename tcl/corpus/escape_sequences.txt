@@ -1,0 +1,60 @@
+===
+Escaping semicolon
+===
+
+puts TL\;DR
+
+---
+
+(source_file
+ (command
+  name: (word)
+  arguments: (word_list
+              (word (escape_sequence)))))
+
+===
+Escaping quotes
+===
+
+puts "He said \"You shall not pass!\""
+
+---
+
+(source_file
+ (command
+  name: (word)
+  arguments: (word_list
+              (quoted_word (escape_sequence) (escape_sequence)))))
+
+===
+Escaping braces
+===
+
+eval {puts \}}
+
+---
+
+(source_file
+ (command
+  name: (word)
+  arguments: (word_list
+              (braced_word
+               (word) (word (escape_sequence))))))
+
+===
+Escaping brackets
+===
+
+puts [return \]]
+
+---
+
+(source_file
+ (command
+  name: (word)
+  arguments: (word_list
+              (command_substitution
+               (command
+                name: (word)
+                arguments: (word_list
+                            (word (escape_sequence))))))))

@@ -8,6 +8,8 @@ module.exports = grammar({
 
   inline: $ => [$._terminator],
 
+  conflicts: $ => [[$.word]],
+
   rules: {
     source_file: $ => repeat(seq($._command_or_comment, $._terminator)),
 
@@ -35,7 +37,14 @@ module.exports = grammar({
     concatenation: $ =>
       interleavedSeq2(choice($.word, $.variable_substitution), $._concat),
 
-    word: _ => /[^$\s\[\]{};"]+/,
+    word: $ =>
+      interleavedSeq1(
+        choice($._word_content, $.escape_sequence),
+        prec.dynamic(1, $._concat),
+      ),
+    _word_content: _ => /[^$\s\\\[\]{};"]+/,
+
+    escape_sequence: _ => /\\./,
 
     variable_substitution: _ => token(seq('$', /[a-z]+/)),
 
@@ -47,11 +56,12 @@ module.exports = grammar({
             $._quoted_word_content,
             $.variable_substitution,
             $.command_substitution,
+            $.escape_sequence
           ),
         ),
         '"',
       ),
-    _quoted_word_content: _ => /[^$\[\]"]+/,
+    _quoted_word_content: _ => /[^$\\\[\]"]+/,
 
     braced_word: $ => seq('{', repeat($._word), '}'),
 
