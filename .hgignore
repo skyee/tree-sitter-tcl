@@ -1,5 +1,11 @@
+^build/
 ^node_modules/
 ^target/
+
+(^|/).cache/
+(^|/)compile_commands.json$
+
+^tcl(sh)?/tree-sitter-tcl(sh)?.wasm$
 ^tcl(sh)?/src/grammar.json$
 ^tcl(sh)?/src/node-types.json$
 ^tcl(sh)?/src/parser.c$
