@@ -1,6 +1,6 @@
-image: alpine/latest
+image: alpine/edge
 packages:
-  - tree-sitter
+  - tree-sitter-cli
 tasks:
   - test: |
       cd tree-sitter-tcl
