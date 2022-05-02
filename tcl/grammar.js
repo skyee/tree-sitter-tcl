@@ -13,7 +13,7 @@ module.exports = grammar({
 
     _command_or_comment: $ => choice($.comment, $.command),
 
-    _terminator: $ => choice('\n', $._eof),
+    _terminator: $ => choice('\n', ';', $._eof),
 
     comment: _ => /#[^\n]+/,
 
@@ -35,7 +35,7 @@ module.exports = grammar({
     concatenation: $ =>
       interleavedSeq2(choice($.word, $.variable_substitution), $._concat),
 
-    word: _ => /[^$\s\[\]{}"]+/,
+    word: _ => /[^$\s\[\]{};"]+/,
 
     variable_substitution: _ => token(seq('$', /[a-z]+/)),
 

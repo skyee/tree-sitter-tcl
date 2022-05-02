@@ -1,7 +1,6 @@
 ===
 No final newline
 ===
-
 puts "You're not gonna parse THIS"
 ---
 
@@ -9,3 +8,24 @@ puts "You're not gonna parse THIS"
  (command
   name: (word)
   arguments: (word_list (quoted_word))))
+
+===
+Semicolons
+===
+puts Jessie!;puts James!
+puts Jessie!; puts James!;
+---
+
+(source_file
+ (command
+  name: (word)
+  arguments: (word_list (word)))
+ (command
+  name: (word)
+  arguments: (word_list (word)))
+ (command
+  name: (word)
+  arguments: (word_list (word)))
+ (command
+  name: (word)
+  arguments: (word_list (word))))
