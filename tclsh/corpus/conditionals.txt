@@ -3,7 +3,8 @@ Very simple if statement
 ===
 
 if true {
-    puts True
+    set msg True
+    puts $msg
 }
 
 ---
@@ -12,9 +13,41 @@ if true {
  (if_command
   (if_clause
    condition: (word)
-   body: (braced_word
-          (word)
-          (word)))))
+   body: (block
+          (command
+           name: (word)
+           arguments: (word_list (word) (word)))
+          (command
+           name: (word)
+           arguments: (word_list (variable_substitution)))))))
+
+===
+One-line if statement
+===
+
+if true then {set msg true; puts $msg} {set msg false; puts $msg}
+
+---
+
+(source_file
+ (if_command
+  (if_clause
+   condition: (word)
+   body: (block
+          (command
+           name: (word)
+           arguments: (word_list (word) (word)))
+          (command
+           name: (word)
+           arguments: (word_list (variable_substitution)))))
+  (else_clause
+   body: (block
+          (command
+           name: (word)
+           arguments: (word_list (word) (word)))
+          (command
+           name: (word)
+           arguments: (word_list (variable_substitution)))))))
 
 ===
 Simple if statement
@@ -32,13 +65,15 @@ if {true} {
  (if_command
   (if_clause
    condition: (braced_word (word))
-   body: (braced_word
-          (word)
-          (word)))
+   body: (block
+          (command
+           name: (word)
+           arguments: (word_list (word)))))
   (else_clause
-   body: (braced_word
-          (word)
-          (word)))))
+   body: (block
+          (command
+           name: (word)
+           arguments: (word_list (word)))))))
 
 ===
 If statement with elseif
@@ -72,26 +107,30 @@ if {$x == 1} {
                (variable_substitution)
                (word)
                (word))
-   body: (braced_word
-          (word)
-          (word)))
+   body: (block
+          (command
+           name: (word)
+           arguments: (word_list (word)))))
   (elseif_clause
    condition: (braced_word
                (variable_substitution)
                (word)
                (word))
-   body: (braced_word
-          (word)
-          (word)))
+   body: (block
+          (command
+           name: (word)
+           arguments: (word_list (word)))))
   (elseif_clause
    condition: (braced_word
                (variable_substitution)
                (word)
                (word))
-   body: (braced_word
-          (word)
-          (word)))
+   body: (block
+          (command
+           name: (word)
+           arguments: (word_list (word)))))
   (else_clause
-   body: (braced_word
-          (word)
-          (word)))))
+   body: (block
+          (command
+           name: (word)
+           arguments: (word_list (word)))))))

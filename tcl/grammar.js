@@ -1,4 +1,8 @@
-const { interleavedSeq1, interleavedSeq2 } = require('../common/util')
+const {
+  interleavedSeq1,
+  interleavedSeq2,
+  statementSequence,
+} = require('../common/util')
 
 module.exports = grammar({
   name: 'tcl',
@@ -11,9 +15,9 @@ module.exports = grammar({
   conflicts: $ => [[$.word]],
 
   rules: {
-    source_file: $ => repeat(seq($._command_or_comment, $._terminator)),
+    source_file: _ => statementSequence,
 
-    _command_or_comment: $ => choice($.comment, $.command),
+    _statement: $ => choice($.comment, $.command),
 
     _terminator: $ => choice('\n', ';', $._eof),
 
@@ -56,7 +60,7 @@ module.exports = grammar({
             $._quoted_word_content,
             $.variable_substitution,
             $.command_substitution,
-            $.escape_sequence
+            $.escape_sequence,
           ),
         ),
         '"',
@@ -65,7 +69,6 @@ module.exports = grammar({
 
     braced_word: $ => seq('{', repeat($._word), '}'),
 
-    command_substitution: $ =>
-      seq('[', interleavedSeq1($._command_or_comment, '\n'), ']'),
+    command_substitution: _ => seq('[', statementSequence, ']'),
   },
 })
