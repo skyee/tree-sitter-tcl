@@ -3,4 +3,5 @@ packages:
   - tree-sitter
 tasks:
   - test: |
+      cd tree-sitter-tcl
       make test
