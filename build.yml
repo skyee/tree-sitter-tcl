@@ -1,0 +1,6 @@
+image: alpine/latest
+packages:
+  - tree-sitter
+tasks:
+  - test |
+      make test
