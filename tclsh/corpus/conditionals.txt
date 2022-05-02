@@ -11,10 +11,10 @@ if true {
 (source_file
  (if_command
   (if_clause
-   condition: (word (word_content))
+   condition: (word)
    body: (braced_word
-          (word (word_content))
-          (word (word_content))))))
+          (word)
+          (word)))))
 
 ===
 Simple if statement
@@ -31,14 +31,14 @@ if {true} {
 (source_file
  (if_command
   (if_clause
-   condition: (braced_word (word (word_content)))
+   condition: (braced_word (word))
    body: (braced_word
-          (word (word_content))
-          (word (word_content))))
+          (word)
+          (word)))
   (else_clause
    body: (braced_word
-          (word (word_content))
-          (word (word_content))))))
+          (word)
+          (word)))))
 
 ===
 If statement with elseif
@@ -60,38 +60,38 @@ if {$x == 1} {
 
 (source_file
  (command
-  name: (word (word_content))
+  name: (word)
   arguments: (word_list
-              (word (word_content))
-              (word (word_content))))
+              (word)
+              (word)))
 
 
  (if_command
   (if_clause
    condition: (braced_word
-               (word (variable_substitution))
-               (word (word_content))
-               (word (word_content)))
+               (variable_substitution)
+               (word)
+               (word))
    body: (braced_word
-          (word (word_content))
-          (word (word_content))))
+          (word)
+          (word)))
   (elseif_clause
    condition: (braced_word
-               (word (variable_substitution))
-               (word (word_content))
-               (word (word_content)))
+               (variable_substitution)
+               (word)
+               (word))
    body: (braced_word
-          (word (word_content))
-          (word (word_content))))
+          (word)
+          (word)))
   (elseif_clause
    condition: (braced_word
-               (word (variable_substitution))
-               (word (word_content))
-               (word (word_content)))
+               (variable_substitution)
+               (word)
+               (word))
    body: (braced_word
-          (word (word_content))
-          (word (word_content))))
+          (word)
+          (word)))
   (else_clause
    body: (braced_word
-          (word (word_content))
-          (word (word_content))))))
+          (word)
+          (word)))))
