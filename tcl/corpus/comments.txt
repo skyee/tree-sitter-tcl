@@ -10,9 +10,9 @@ puts "Hello, world!"
 (source_file
  (comment)
  (command
-  name: (word (word_content))
+  name: (word)
   arguments: (word_list
-              (quoted_word (word_content)))))
+              (quoted_word))))
 
 ===
 A comment inside command substitution
@@ -25,13 +25,12 @@ expr 2+2]
 
 (source_file
  (command
-  name: (word (word_content))
+  name: (word)
   arguments: (word_list
-              (word (word_content))
-              (word
+              (word)
               (command_substitution
                (comment)
                (command
-                name: (word (word_content))
+                name: (word)
                 arguments: (word_list
-                            (word (word_content)))))))))
+                            (word)))))))

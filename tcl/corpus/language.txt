@@ -11,15 +11,15 @@ expr 20+10
 
 (source_file
  (command
-  name: (word (word_content))
+  name: (word)
   arguments: (word_list
-              (word (word_content))
-              (word (word_content))
-              (word (word_content))))
+              (word)
+              (word)
+              (word)))
  (command
-  name: (word (word_content))
+  name: (word)
   arguments: (word_list
-              (word (word_content)))))
+              (word))))
 
 ===
 Variables
@@ -39,38 +39,38 @@ $cmd $x*$x
 
 (source_file
  (command
-  name: (word (word_content))
+  name: (word)
   arguments: (word_list
-              (word (word_content))
-              (word (word_content))))
+              (word)
+              (word)))
 
  (command
-  name: (word (word_content))
-  arguments: (word_list (word (word_content))))
+  name: (word)
+  arguments: (word_list (word)))
 
  (command
-  name: (word (word_content))
+  name: (word)
   arguments: (word_list
-              (word
+              (concatenation
                (variable_substitution)
-               (word_content))))
+               (word))))
 
  (command
-  name: (word (word_content))
+  name: (word)
   arguments: (word_list
-              (word (word_content))
-              (word (word_content))))
+              (word)
+              (word)))
  (command
-  name: (word (word_content))
+  name: (word)
   arguments: (word_list
-              (word (word_content))
-              (word (word_content))))
+              (word)
+              (word)))
  (command
-  name: (word (variable_substitution))
+  name: (variable_substitution)
   arguments: (word_list
-              (word
+              (concatenation
                (variable_substitution)
-               (word_content)
+               (word)
                (variable_substitution)))))
 
 ===
@@ -84,21 +84,21 @@ set b [expr $a*4]
 
 (source_file
  (command
-  name: (word (word_content))
+  name: (word)
   arguments: (word_list
-              (word (word_content))
-              (word (word_content))))
+              (word)
+              (word)))
  (command
-  name: (word (word_content))
+  name: (word)
   arguments: (word_list
-              (word (word_content))
-              (word (command_substitution
-                     (command
-                      name: (word (word_content))
-                      arguments: (word_list
-                                  (word
-                                   (variable_substitution)
-                                   (word_content)))))))))
+              (word)
+              (command_substitution
+               (command
+                name: (word)
+                arguments: (word_list
+                            (concatenation
+                             (variable_substitution)
+                             (word))))))))
 
 ===
 Quotes and braces
@@ -115,48 +115,46 @@ set z {$x + $y is [expr $x + $y]}
 
 (source_file
  (command
-  name: (word (word_content))
+  name: (word)
   arguments: (word_list
-              (word (word_content))
-              (word (word_content))))
+              (word)
+              (word)))
  (command
-  name: (word (word_content))
+  name: (word)
   arguments: (word_list
-              (word (word_content))
-              (word (word_content))))
+              (word)
+              (word)))
  (command
-  name: (word (word_content))
+  name: (word)
   arguments: (word_list
-              (word (word_content))
+              (word)
               (quoted_word
                (variable_substitution)
-               (word_content)
                (variable_substitution)
-               (word_content)
                (command_substitution
                 (command
-                 name: (word (word_content))
+                 name: (word)
                  arguments: (word_list
-                             (word (variable_substitution))
-                             (word (word_content))
-                             (word (variable_substitution))))))))
+                             (variable_substitution)
+                             (word)
+                             (variable_substitution)))))))
 
  (command
-  name: (word (word_content))
+  name: (word)
   arguments: (word_list
-              (word (word_content))
+              (word)
               (braced_word
-               (word (variable_substitution))
-               (word (word_content))
-               (word (variable_substitution))
-               (word (word_content))
-               (word (command_substitution
-                      (command
-                       name: (word (word_content))
-                       arguments: (word_list
-                                   (word (variable_substitution))
-                                   (word (word_content))
-                                   (word (variable_substitution))))))))))
+               (variable_substitution)
+               (word)
+               (variable_substitution)
+               (word)
+               (command_substitution
+                (command
+                 name: (word)
+                 arguments: (word_list
+                             (variable_substitution)
+                             (word)
+                             (variable_substitution))))))))
 
 ===
 Control structures
@@ -178,52 +176,50 @@ power 1.15 5
 
 (source_file
  (command
-  name: (word (word_content))
+  name: (word)
   arguments: (word_list
-              (word (word_content))
+              (word)
               (braced_word
-               (word (word_content))
-               (word (word_content)))
+               (word)
+               (word))
               (braced_word
-               (word (word_content))
-               (word (word_content))
-               (word (word_content))
-               (word (word_content))
+               (word)
+               (word)
+               (word)
+               (word)
                (braced_word
-                (word (variable_substitution))
-                (word (word_content))
-                (word (word_content)))
+                (variable_substitution)
+                (word)
+                (word))
                (braced_word
-                (word (word_content))
-                (word (word_content))
-                (word
-                 (command_substitution
-                  (command
-                   name: (word (word_content))
-                   arguments: (word_list
-                               (word (variable_substitution))
-                               (word (word_content))
-                               (word (variable_substitution))))))
-                (word (word_content))
-                (word (word_content))
-                (word
-                 (command_substitution
-                  (command
-                   name: (word (word_content))
-                   arguments: (word_list
-                               (word (variable_substitution))
-                               (word (word_content))
-                               (word (word_content)))))))
-               (word (word_content))
-               (word (variable_substitution)))))
+                (word)
+                (word)
+                (command_substitution
+                 (command
+                  name: (word)
+                  arguments: (word_list
+                              (variable_substitution)
+                              (word)
+                              (variable_substitution))))
+                (word)
+                (word)
+                (command_substitution
+                 (command
+                  name: (word)
+                  arguments: (word_list
+                              (variable_substitution)
+                              (word)
+                              (word)))))
+               (word)
+               (variable_substitution))))
 
  (command
-  name: (word (word_content))
+  name: (word)
   arguments: (word_list
-              (word (word_content))
-              (word (word_content))))
+              (word)
+              (word)))
  (command
-  name: (word (word_content))
+  name: (word)
   arguments: (word_list
-              (word (word_content))
-              (word (word_content)))))
+              (word)
+              (word))))
