@@ -8,7 +8,7 @@ x
 
 (source_file
  (command
-  name: (word (word_content))))
+  name: (word)))
 
 ===
 Two words
@@ -20,8 +20,8 @@ a b
 
 (source_file
  (command
-  name: (word (word_content))
-  arguments: (word_list (word (word_content)))))
+  name: (word)
+  arguments: (word_list (word))))
 
 ===
 Substitution + word content
@@ -33,9 +33,9 @@ $a-test
 
 (source_file
  (command
-  name: (word
+  name: (concatenation
          (variable_substitution)
-         (word_content))))
+         (word))))
 
 ===
 Word content + variable substitution
@@ -47,8 +47,8 @@ test-$a
 
 (source_file
  (command
-  name: (word
-         (word_content)
+  name: (concatenation
+         (word)
          (variable_substitution))))
 
 ===
@@ -61,9 +61,9 @@ $a $b
 
 (source_file
  (command
-  name: (word (variable_substitution))
+  name: (variable_substitution)
   arguments: (word_list
-              (word (variable_substitution)))))
+              (variable_substitution))))
 
 ===
 Simple string word
@@ -75,9 +75,9 @@ puts "Hello, world!"
 
 (source_file
  (command
-  name: (word (word_content))
+  name: (word)
   arguments: (word_list
-              (quoted_word (word_content)))))
+              (quoted_word))))
 
 ===
 String word with variable substitution
@@ -89,12 +89,9 @@ puts "Hello, $name!"
 
 (source_file
  (command
-  name: (word (word_content))
+  name: (word)
   arguments: (word_list
-              (quoted_word
-               (word_content)
-               (variable_substitution)
-               (word_content)))))
+              (quoted_word (variable_substitution)))))
 
 ===
 Braced word
@@ -106,8 +103,8 @@ puts {expr 2+2}
 
 (source_file
  (command
-  name: (word (word_content))
+  name: (word)
   arguments: (word_list
               (braced_word
-               (word (word_content))
-               (word (word_content))))))
+               (word)
+               (word)))))

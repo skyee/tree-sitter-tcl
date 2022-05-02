@@ -18,17 +18,19 @@ module.exports = grammar({
 
     word_list: $ => repeat1($._word),
 
-    _word: $ => choice($.word, $.quoted_word, $.braced_word),
-
-    word: $ =>
+    _word: $ =>
       choice(
-        choice($.word_content, $.variable_substitution, $.command_substitution),
-        interleavedSeq2(
-          choice($.word_content, $.variable_substitution),
-          $._concat,
-        ),
+        $.concatenation,
+        $.word,
+        $.quoted_word,
+        $.braced_word,
+        $.variable_substitution,
+        $.command_substitution,
       ),
-    word_content: _ => /[^$\s\[\]{}"]+/,
+
+    concatenation: $ =>
+      interleavedSeq2(choice($.word, $.variable_substitution), $._concat),
+    word: _ => /[^$\s\[\]{}"]+/,
     variable_substitution: _ => token(seq('$', /[a-z]+/)),
 
     quoted_word: $ =>
@@ -43,7 +45,7 @@ module.exports = grammar({
         ),
         '"',
       ),
-    _quoted_word_content: $ => alias(/[^$\[\]"]+/, $.word_content),
+    _quoted_word_content: _ => /[^$\[\]"]+/,
 
     braced_word: $ => seq('{', repeat($._word), '}'),
 
