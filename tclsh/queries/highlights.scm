@@ -1,10 +1,8 @@
 (quoted_word) @string
 
-((command
-    name: (word) @keyword
-    arguments: (word_list (word) @variable)
- (#match? @keyword "set")))
+(set_command
+  "set" @keyword
+  name: (word) @variable)
 
 (command
   name: (word) @function.call)
-

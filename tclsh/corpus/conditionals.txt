@@ -14,9 +14,9 @@ if true {
   (if_clause
    condition: (word)
    body: (block
-          (command
+          (set_command
            name: (word)
-           arguments: (word_list (word) (word)))
+           value: (word))
           (command
            name: (word)
            arguments: (word_list (variable_substitution)))))))
@@ -34,17 +34,17 @@ if true then {set msg true; puts $msg} {set msg false; puts $msg}
   (if_clause
    condition: (word)
    body: (block
-          (command
+          (set_command
            name: (word)
-           arguments: (word_list (word) (word)))
+           value: (word))
           (command
            name: (word)
            arguments: (word_list (variable_substitution)))))
   (else_clause
    body: (block
-          (command
+          (set_command
            name: (word)
-           arguments: (word_list (word) (word)))
+           value: (word))
           (command
            name: (word)
            arguments: (word_list (variable_substitution)))))))
@@ -94,12 +94,9 @@ if {$x == 1} {
 ---
 
 (source_file
- (command
+ (set_command
   name: (word)
-  arguments: (word_list
-              (word)
-              (word)))
-
+  value: (word))
 
  (if_command
   (if_clause

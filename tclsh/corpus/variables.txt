@@ -1,0 +1,12 @@
+===
+Setting variable
+===
+
+set foo "bar"
+
+---
+
+(source_file
+ (set_command
+  name: (word)
+  value: (quoted_word)))
