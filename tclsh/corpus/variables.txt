@@ -10,3 +10,15 @@ set foo "bar"
  (set_command
   name: (word)
   value: (quoted_word)))
+
+===
+Getting variable
+===
+
+set foo
+
+---
+
+(source_file
+ (set_command
+  name: (word)))
