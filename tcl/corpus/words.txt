@@ -108,3 +108,37 @@ puts {expr 2+2}
               (braced_word
                (word)
                (word)))))
+
+===
+Braced word with only left brace inside
+===
+
+puts {expr 2+2{}
+
+---
+
+(source_file
+ (command
+  name: (word)
+  arguments: (word_list
+              (braced_word
+               (word)
+               (word)
+               (ERROR)))))
+
+===
+Braced word with only right brace inside
+===
+
+puts {expr 2+2}}
+
+---
+
+(source_file
+ (command
+  name: (word)
+  arguments: (word_list
+              (braced_word
+               (word)
+               (word))))
+ (ERROR))
