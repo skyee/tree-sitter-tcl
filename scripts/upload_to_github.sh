@@ -31,7 +31,6 @@ rsync -aR \
 
 cd ../tree-sitter-tcl-generated
 
-export GIT_SSH_COMMAND='ssh -o StrictHostKeyChecking=no'
 git add .
 git commit --message "$message"
 git push

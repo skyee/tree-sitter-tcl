@@ -5,6 +5,8 @@ packages:
   - tree-sitter-cli
 secrets:
   - efb4ce30-ebb9-4966-b4c7-ade2fe600546
+environment:
+  GIT_SSH_COMMAND: ssh -o StrictHostKeyChecking=no
 tasks:
   - test: |
       cd tree-sitter-tcl
