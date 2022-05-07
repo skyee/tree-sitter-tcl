@@ -4,7 +4,9 @@ packages:
   - tree-sitter-cli
 sources:
   - hg+https://hg.sr.ht/~cdrozak/tree-sitter-tcl
-  - https://git.sr.ht/~cdrozak/tree-sitter-tcl-pregen
+  - git@git.sr.ht:~cdrozak/tree-sitter-tcl-pregen
+secrets:
+  - efb4ce30-ebb9-4966-b4c7-ade2fe600546
 tasks:
   - test: |
       cd tree-sitter-tcl
