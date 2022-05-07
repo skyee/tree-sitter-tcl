@@ -11,7 +11,7 @@ message=$(
 	cat <<-EOF
 		Add revision $revision
 
-		See: https://hg.sr.ht/~cdrozak/tree-sitter-tcl/rev/$revision
+		See: https://hg.sr.ht/~cdrozak/tree-sitter-tcl/rev/$commit_id
 	EOF
 )
 
