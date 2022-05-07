@@ -28,3 +28,4 @@ cp -rf \
 cd ../tree-sitter-tcl-pregen
 git add .
 git commit --message "$message"
+git push
