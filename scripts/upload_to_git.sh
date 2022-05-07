@@ -18,7 +18,7 @@ message=$(
 	EOF
 )
 
-cp -rf \
+rsync -aR \
 	Cargo.{lock,toml} \
 	binding.gyp \
 	bindings \
