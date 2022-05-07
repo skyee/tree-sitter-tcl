@@ -2,7 +2,13 @@ image: alpine/edge
 packages:
   - nodejs
   - tree-sitter-cli
+sources:
+  - hg+https://hg.sr.ht/~cdrozak/tree-sitter-tcl
+  - https://git.sr.ht/~cdrozak/tree-sitter-tcl-pregen
 tasks:
   - test: |
       cd tree-sitter-tcl
       make test
+  - upload_to_git: |
+      cd tree-sitter-tcl
+      scripts/upload_to_git.sh
