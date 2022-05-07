@@ -1,6 +1,7 @@
 image: alpine/edge
 packages:
   - nodejs
+  - rsync
   - tree-sitter-cli
 sources:
   - hg+https://hg.sr.ht/~cdrozak/tree-sitter-tcl
