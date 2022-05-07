@@ -22,10 +22,11 @@ cp -rf \
 	Cargo.{lock,toml} \
 	binding.gyp \
 	bindings \
+	common/scanner.h \
 	package-lock.json \
 	package.json \
-	tcl{,sh}/{package.json,src} \
 	tclsh/queries \
+	tcl{,sh}/{package.json,src} \
 	../tree-sitter-tcl-pregen
 
 cd ../tree-sitter-tcl-pregen
