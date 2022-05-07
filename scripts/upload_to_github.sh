@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # NOTE: This script is meant to be run from the .build.yml file. It requires to
-# be run from the root of the repository and to have tree-sitter-tcl-pregen
+# be run from the root of the repository and to have tree-sitter-tcl-generated
 # directory in the same directory as tree-sitter-tcl.
 set -euxo pipefail
 
@@ -27,9 +27,9 @@ rsync -aR \
 	package.json \
 	tclsh/queries \
 	tcl{,sh}/{package.json,src} \
-	../tree-sitter-tcl-pregen
+	../tree-sitter-tcl-generated
 
-cd ../tree-sitter-tcl-pregen
+cd ../tree-sitter-tcl-generated
 
 export GIT_SSH_COMMAND='ssh -o StrictHostKeyChecking=no'
 git add .

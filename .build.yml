@@ -3,15 +3,15 @@ packages:
   - nodejs
   - rsync
   - tree-sitter-cli
-sources:
-  - hg+https://hg.sr.ht/~cdrozak/tree-sitter-tcl
-  - git@git.sr.ht:~cdrozak/tree-sitter-tcl-pregen
 secrets:
   - efb4ce30-ebb9-4966-b4c7-ade2fe600546
 tasks:
   - test: |
       cd tree-sitter-tcl
       make test
-  - upload_to_git: |
+  - upload_to_github: |
+      git clone \
+        git@github.com:nawordar/tree-sitter-tcl.git \
+        tree-sitter-tcl-generated
       cd tree-sitter-tcl
-      scripts/upload_to_git.sh
+      scripts/upload_to_github.sh
