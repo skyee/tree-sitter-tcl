@@ -2,7 +2,7 @@
 # NOTE: This script is meant to be run from the .build.yml file. It requires to
 # be run from the root of the repository and to have tree-sitter-tcl-pregen
 # directory in the same directory as tree-sitter-tcl.
-set -euo pipefail
+set -euxo pipefail
 
 commit_num=$(hg identify --num)
 commit_id=$(hg identify --id)
