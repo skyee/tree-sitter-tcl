@@ -31,5 +31,6 @@ cp -rf \
 cd ../tree-sitter-tcl-pregen
 
 export GIT_SSH_COMMAND='ssh -o StrictHostKeyChecking=no'
-git commit --all --message "$message"
+git add .
+git commit --message "$message"
 git push
