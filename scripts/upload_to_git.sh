@@ -4,9 +4,12 @@
 # directory in the same directory as tree-sitter-tcl.
 set -euxo pipefail
 
+# Generate revision number based on:
+# https://wiki.archlinux.org/title/VCS_package_guidelines#The_pkgver()_function
 commit_num=$(hg identify --num)
 commit_id=$(hg identify --id)
 revision="r.$commit_num.$commit_id"
+
 message=$(
 	cat <<-EOF
 		Add revision $revision
