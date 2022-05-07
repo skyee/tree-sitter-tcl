@@ -50,7 +50,10 @@ module.exports = grammar({
 
     escape_sequence: _ => /\\./,
 
-    variable_substitution: _ => token(seq('$', /[a-z]+/)),
+    variable_substitution: $ =>
+      choice($._simple_variable_substitution, $._braced_variable_substitution),
+    _simple_variable_substitution: _ => seq('$', /[a-z]+/),
+    _braced_variable_substitution: _ => seq('${', /[^}]+/, '}'),
 
     quoted_word: $ =>
       seq(

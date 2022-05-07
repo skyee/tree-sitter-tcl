@@ -1,0 +1,57 @@
+===
+Simple variable substitution
+===
+
+set hello Hello
+set world World!
+
+puts $hello $world
+
+---
+
+(source_file
+  (command
+    name: (word)
+    arguments: (word_list (word) (word)))
+  (command
+    name: (word)
+    arguments: (word_list (word) (word)))
+  (command
+    name: (word)
+    arguments: (word_list (variable_substitution) (variable_substitution))))
+
+===
+Variable substitution in a quoted word
+===
+
+set name Foobar
+
+puts "Hello, $name!"
+
+---
+
+(source_file
+  (command
+    name: (word)
+    arguments: (word_list (word) (word)))
+  (command
+    name: (word)
+    arguments: (word_list (quoted_word (variable_substitution)))))
+
+===
+Variable substitution with funny variable name
+===
+
+set {#} "Lole"
+
+puts "This ain't gonna work, ${#}"
+
+---
+
+(source_file
+  (command
+    name: (word)
+    arguments: (word_list (braced_word (word)) (quoted_word)))
+  (command
+    name: (word)
+    arguments: (word_list (quoted_word (variable_substitution)))))
