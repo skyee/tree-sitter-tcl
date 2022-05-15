@@ -8,7 +8,9 @@ module.exports = grammar({
   name: 'tcl',
 
   /** @param {RuleProxy<'_concat'>} $ */
-  externals: $ => [$._concat],
+  externals: $ => [$._concat, '}', ']'],
+
+  extras: _ => [' '],
 
   inline: $ => [$._terminator],
 
@@ -70,7 +72,7 @@ module.exports = grammar({
       ),
     _quoted_word_content: _ => /[^$\\\[\]"]+/,
 
-    braced_word: $ => seq('{', repeat($._word), '}'),
+    braced_word: $ => seq('{', repeat(choice('\n', $._word)), '}'),
 
     command_substitution: _ => seq('[', statementSequence, ']'),
   },
