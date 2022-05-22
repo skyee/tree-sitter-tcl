@@ -1,4 +1,5 @@
 TREE_SITTER ?= tree-sitter
+FILTER ?=
 
 common_sources := common/scanner.h
 
@@ -43,12 +44,18 @@ $(tclsh_generated): $(common_sources) $(tclsh_sources)
 	cd tclsh && $(TREE_SITTER) generate --no-bindings
 
 .PHONY: test-tcl
-test-tcl: $(tcl_generated)
-	cd tcl && $(TREE_SITTER) test
+test-tcl: $(tcl_generated) | _test-tcl
 
 .PHONY: test-tclsh
-test-tclsh: $(tclsh_generated)
-	cd tclsh && $(TREE_SITTER) test
+test-tclsh: $(tclsh_generated) | _test-tclsh
+
+.PHONY: _test-%
+_test-%:
+ifeq ($(FILTER),)
+	cd $* && $(TREE_SITTER) test
+else
+	cd $* && $(TREE_SITTER) test --filter $(FILTER)
+endif
 
 .PHONY: test-highlight
 test-highlight: $(tclsh_generated)

@@ -8,7 +8,7 @@
  *  @type {SequenceRule}
  */
 const statementSequence = seq(
-  repeat(seq(sym('_statement'), sym('_terminator'))),
+  repeat(seq(optional(sym('_statement')), sym('_terminator'))),
   optional(sym('_statement')),
 )
 

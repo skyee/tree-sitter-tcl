@@ -53,7 +53,7 @@ interface GrammarDescription<
   extras?: (
     $: RuleProxy<TRules | TExternalRules>,
     baseExtras: SymbolRule<TRules | TExternalRules>[],
-  ) => SymbolRule<TRules | TExternalRules>[]
+  ) => (SymbolRule<TRules | TExternalRules> | string)[]
   conflicts?: (
     $: RuleProxy<TRules | TExternalRules>,
     baseConflicts: SymbolRule<TRules | TExternalRules>[][],
