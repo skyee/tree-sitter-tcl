@@ -6,7 +6,9 @@
 //! ```
 //! let code = "";
 //! let mut parser = tree_sitter::Parser::new();
-//! parser.set_language(tree_sitter_tcl::language()).expect("Error loading tcl grammar");
+//! parser
+//!     .set_language(tree_sitter_tcl::language_tcl())
+//!     .expect("Error loading tcl grammar");
 //! let tree = parser.parse(code, None).unwrap();
 //! ```
 //!
