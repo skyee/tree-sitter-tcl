@@ -1,3 +1,5 @@
+NODE ?= node
+CARGO ?= cargo
 TREE_SITTER ?= tree-sitter
 FILTER ?=
 
@@ -31,7 +33,7 @@ all: generate
 generate: generate-tcl generate-tclsh
 
 .PHONY: test
-test: test-tcl test-tclsh test-highlight
+test: test-tcl test-tclsh test-highlight test-bindings
 
 .PHONY: generate-tcl
 generate-tcl: $(tcl_generated)
@@ -43,21 +45,26 @@ generate-tclsh: $(tclsh_generated)
 $(tclsh_generated): $(common_sources) $(tclsh_sources)
 	cd tclsh && $(TREE_SITTER) generate --no-bindings
 
-.PHONY: test-tcl
-test-tcl: $(tcl_generated) | _test-tcl
+.PHONY: test-highlight
+test-highlight: $(tclsh_generated)
+	$(TREE_SITTER) test
+	
+.PHONY: test-bindings
+test-bindings: test-bindings-node test-bindings-rust
 
-.PHONY: test-tclsh
-test-tclsh: $(tclsh_generated) | _test-tclsh
+.PHONY: test-bindings-node
+test-bindings-node: bindings/node/test.mjs generate-tcl generate-tclsh
+	$(NODE) $<
 
-.PHONY: _test-%
-_test-%:
+.PHONY: test-bindings-rust
+test-bindings-rust: bindings/rust/lib.rs generate-tcl generate-tclsh
+	$(CARGO) test
+
+.PHONY: test-%
+test-%: generate-%
 ifeq ($(FILTER),)
 	cd $* && $(TREE_SITTER) test
 else
 	cd $* && $(TREE_SITTER) test --filter $(FILTER)
 endif
 
-.PHONY: test-highlight
-test-highlight: $(tclsh_generated)
-	$(TREE_SITTER) test
-	
