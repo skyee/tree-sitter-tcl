@@ -1,3 +1,4 @@
+NPM ?= npm
 NODE ?= node
 CARGO ?= cargo
 TREE_SITTER ?= tree-sitter
@@ -35,6 +36,12 @@ generate: generate-tcl generate-tclsh
 .PHONY: test
 test: test-tcl test-tclsh test-highlight test-bindings
 
+.PHONY: install
+install: node_modules
+node_modules: package-lock.json
+	$(NPM) install
+	touch $@
+
 .PHONY: generate-tcl
 generate-tcl: $(tcl_generated)
 $(tcl_generated): $(common_sources) $(tcl_sources)
@@ -53,7 +60,7 @@ test-highlight: $(tclsh_generated)
 test-bindings: test-bindings-node test-bindings-rust
 
 .PHONY: test-bindings-node
-test-bindings-node: bindings/node/test.mjs generate-tcl generate-tclsh
+test-bindings-node: bindings/node/test.mjs install generate-tcl generate-tclsh
 	$(NODE) $<
 
 .PHONY: test-bindings-rust
