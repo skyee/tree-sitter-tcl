@@ -1,6 +1,7 @@
 image: alpine/edge
 packages:
   - nodejs
+  - npm
   - rsync
   - tree-sitter-cli
 secrets:
