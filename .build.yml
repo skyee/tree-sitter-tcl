@@ -1,5 +1,6 @@
 image: alpine/edge
 packages:
+  - cargo
   - nodejs
   - npm
   - rsync
