@@ -10,6 +10,8 @@ module.exports = grammar({
   /** @param {RuleProxy<'_concat'>} $ */
   externals: $ => [$._concat, '}', ']'],
 
+  word: $ => $._word_content,
+
   extras: _ => [' '],
 
   inline: $ => [$._terminator],
