@@ -47,6 +47,9 @@ interface GrammarDescription<
 > {
   name: string
   externals?: ($: RuleProxy<string>) => (SymbolRule<TExternalRules> | string)[]
+  word?: (
+    $: RuleProxy<TRules | TExternalRules>,
+  ) => SymbolRule<TRules | TExternalRules>
   inline?: (
     $: RuleProxy<TRules | TExternalRules>,
   ) => (SymbolRule<TRules | TExternalRules> | string)[]
