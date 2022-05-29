@@ -26,16 +26,9 @@ module.exports = grammar({
     comment: _ => /#[^\n]+/,
 
     command: $ =>
-      seq(
-        field('name', $._word),
-        optional(
-          seq(repeat1($._word_separator), field('arguments', $.word_list)),
-        ),
-      ),
+      seq(field('name', $._word), optional(field('arguments', $.word_list))),
 
-    word_list: $ => interleavedSeq1($._word, repeat1($._word_separator)),
-
-    _word_separator: _ => ' ',
+    word_list: $ => repeat1($._word),
 
     _word: $ =>
       choice(
@@ -79,8 +72,7 @@ module.exports = grammar({
       ),
     _quoted_word_content: _ => /[^$\\\[\]"]+/,
 
-    braced_word: $ =>
-      seq('{', repeat(choice('\n', $._word, $._word_separator)), '}'),
+    braced_word: $ => seq('{', repeat(choice('\n', $._word)), '}'),
 
     command_substitution: _ => seq('[', statementSequence, ']'),
   },
