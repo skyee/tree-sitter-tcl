@@ -23,12 +23,10 @@ const caseInsensitiveToken = word =>
     prec(
       1,
       RegExp(
-        '^' +
-          word
-            .split('')
-            .map(letter => `[${letter}${letter.toUpperCase()}]`)
-            .join('') +
-          '$',
+        word
+          .split('')
+          .map(letter => `[${letter}${letter.toUpperCase()}]`)
+          .join(''),
       ),
     ),
   )
