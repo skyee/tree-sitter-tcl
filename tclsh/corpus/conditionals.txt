@@ -12,11 +12,11 @@ if true {
 (source_file
  (if_command
   (if_clause
-   condition: (word)
+   condition: (boolean_word)
    body: (block
           (set_command
            name: (word)
-           value: (word))
+           value: (boolean_word))
           (command
            name: (word)
            arguments: (word_list (variable_substitution)))))))
@@ -32,11 +32,11 @@ if true then {set msg true; puts $msg} {set msg false; puts $msg}
 (source_file
  (if_command
   (if_clause
-   condition: (word)
+   condition: (boolean_word)
    body: (block
           (set_command
            name: (word)
-           value: (word))
+           value: (boolean_word))
           (command
            name: (word)
            arguments: (word_list (variable_substitution)))))
@@ -44,7 +44,7 @@ if true then {set msg true; puts $msg} {set msg false; puts $msg}
    body: (block
           (set_command
            name: (word)
-           value: (word))
+           value: (boolean_word))
           (command
            name: (word)
            arguments: (word_list (variable_substitution)))))))
@@ -64,16 +64,16 @@ if {true} {
 (source_file
  (if_command
   (if_clause
-   condition: (braced_word (word))
+   condition: (braced_word (boolean_word))
    body: (block
           (command
            name: (word)
-           arguments: (word_list (word)))))
+           arguments: (word_list (boolean_word)))))
   (else_clause
    body: (block
           (command
            name: (word)
-           arguments: (word_list (word)))))))
+           arguments: (word_list (boolean_word)))))))
 
 ===
 If statement with elseif
