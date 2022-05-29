@@ -1,0 +1,56 @@
+===
+Booleans
+===
+
+set x yes
+set x yEs
+set x on
+set x oN
+set x true
+set x tRue
+set x no
+set x nO
+set x off
+set x ofF
+set x false
+set x fAlsE
+
+---
+
+(source_file
+  (set_command
+    name: (word)
+    value: (boolean_word))
+  (set_command
+    name: (word)
+    value: (boolean_word))
+  (set_command
+    name: (word)
+    value: (boolean_word))
+  (set_command
+    name: (word)
+    value: (boolean_word))
+  (set_command
+    name: (word)
+    value: (boolean_word))
+  (set_command
+    name: (word)
+    value: (boolean_word))
+  (set_command
+    name: (word)
+    value: (boolean_word))
+  (set_command
+    name: (word)
+    value: (boolean_word))
+  (set_command
+    name: (word)
+    value: (boolean_word))
+  (set_command
+    name: (word)
+    value: (boolean_word))
+  (set_command
+    name: (word)
+    value: (boolean_word))
+  (set_command
+    name: (word)
+    value: (boolean_word)))
