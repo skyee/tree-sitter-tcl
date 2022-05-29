@@ -32,11 +32,11 @@ declare namespace token {
 interface Grammar {
   name: string
   word: string
-  rules: NormalizedRule[]
-  extras: NormalizedRule[]
+  rules: RuleObject[]
+  extras: RuleObject[]
   conflicts: string[][]
-  precedences: NormalizedRule[][]
-  externals: NormalizedRule[]
+  precedences: RuleObject[][]
+  externals: RuleObject[]
   inline: string[]
   supertypes: string[]
 }
@@ -76,23 +76,25 @@ type Rule = string | RegExp | RuleObject
 type RuleObject =
   | AliasRule
   | BlankRule
-  | FieldRule
   | ChoiceRule
-  | OptionalRule
-  | PrecedenceRule
-  | LeftPrecedenceRule
-  | RightPrecedenceRule
   | DynamicPrecedenceRule
-  | RepeatRule
+  | FieldRule
+  | ImmediateTokenRule
+  | LeftPrecedenceRule
+  | OptionalRule
+  | PatternRule
+  | PrecedenceRule
   | Repeat1Rule
+  | RepeatRule
+  | RightPrecedenceRule
   | SequenceRule
+  | StringRule
   | SymbolRule
   | TokenRule
-  | ImmediateTokenRule
 
 interface AliasRule {
   type: 'ALIAS'
-  content: NormalizedRule
+  content: RuleObject
   named: boolean
   value: string
 }
@@ -104,55 +106,55 @@ interface BlankRule {
 interface FieldRule {
   type: 'FIELD'
   name: string
-  content: NormalizedRule
+  content: RuleObject
 }
 
 interface ChoiceRule {
   type: 'CHOICE'
-  members: NormalizedRule[]
+  members: RuleObject[]
 }
 
 interface OptionalRule extends ChoiceRule {
-  members: [NormalizedRule, BlankRule]
+  members: [RuleObject, BlankRule]
 }
 
 interface PrecedenceRule {
   type: 'PREC'
   value: number
-  content: NormalizedRule
+  content: RuleObject
 }
 
 interface LeftPrecedenceRule {
   type: 'PREC_LEFT'
   value: number
-  content: NormalizedRule
+  content: RuleObject
 }
 
 interface RightPrecedenceRule {
   type: 'PREC_RIGHT'
   value: number
-  content: NormalizedRule
+  content: RuleObject
 }
 
 interface DynamicPrecedenceRule {
   type: 'PREC_DYNAMIC'
   value: number
-  content: NormalizedRule
+  content: RuleObject
 }
 
 interface RepeatRule {
   type: 'REPEAT'
-  content: NormalizedRule
+  content: RuleObject
 }
 
 interface Repeat1Rule {
   type: 'REPEAT1'
-  content: NormalizedRule
+  content: RuleObject
 }
 
 interface SequenceRule {
   type: 'SEQ'
-  members: NormalizedRule[]
+  members: RuleObject[]
 }
 
 interface SymbolRule<TName extends string = string> {
@@ -162,15 +164,13 @@ interface SymbolRule<TName extends string = string> {
 
 interface TokenRule {
   type: 'TOKEN'
-  name: NormalizedRule
+  name: RuleObject
 }
 
 interface ImmediateTokenRule {
   type: 'IMMEDIATE_TOKEN'
-  name: NormalizedRule
+  name: RuleObject
 }
-
-type NormalizedRule = StringRule | PatternRule | RuleObject
 
 interface StringRule {
   type: 'STRING'
