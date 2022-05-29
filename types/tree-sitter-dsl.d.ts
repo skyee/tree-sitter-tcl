@@ -65,7 +65,10 @@ type RuleDefinitions<
   TRules extends string,
   TExternalRules extends string
 > = Record<TRules, RuleDefinition<TRules | TExternalRules>>
-type RuleDefinition<TRules extends string> = ($: RuleProxy<TRules>) => Rule
+type RuleDefinition<TRules extends string> = (
+  $: RuleProxy<TRules>,
+  baseRule: RuleObject,
+) => Rule
 type RuleProxy<TRules extends string> = {
   readonly [TRule in TRules]: SymbolRule<TRule>
 }
