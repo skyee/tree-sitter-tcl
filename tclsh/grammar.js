@@ -1,5 +1,5 @@
 const tclGrammar = require('../tcl/grammar')
-const { statementSequence } = require('../common/util')
+const { caseInsensitiveToken, statementSequence } = require('../common/util')
 
 module.exports = grammar(tclGrammar, {
   name: 'tclsh',
@@ -9,6 +9,19 @@ module.exports = grammar(tclGrammar, {
 
     // A special kind of braced_word that contains a list of commands
     block: _ => seq('{', statementSequence, '}'),
+
+    _word: ($, baseRule) => {
+      baseRule = /** @type {ChoiceRule} */ (baseRule)
+
+      return choice($.boolean_word, ...baseRule.members)
+    },
+
+    boolean_word: _ =>
+      choice(
+        ...['yes', 'on', 'true', 'no', 'off', 'false'].map(
+          caseInsensitiveToken,
+        ),
+      ),
 
     if_command: $ =>
       seq($.if_clause, repeat($.elseif_clause), optional($.else_clause)),

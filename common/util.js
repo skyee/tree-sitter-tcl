@@ -13,6 +13,27 @@ const statementSequence = seq(
 )
 
 /**
+ * Transform word into a case insensitive token
+ *
+ * @param {string} word
+ * @returns {TokenRule}
+ */
+const caseInsensitiveToken = word =>
+  token(
+    prec(
+      1,
+      RegExp(
+        '^' +
+          word
+            .split('')
+            .map(letter => `[${letter}${letter.toUpperCase()}]`)
+            .join('') +
+          '$',
+      ),
+    ),
+  )
+
+/**
  *  Create a sequence where between every rule, an `insertedRule` is inserted.
  *
  *  @param {Rule} insertedRule
@@ -46,6 +67,7 @@ const interleavedSeq2 = (rule, insertedRule) =>
 
 module.exports = {
   statementSequence,
+  caseInsensitiveToken,
   interleavedSeq,
   interleavedSeq1,
   interleavedSeq2,
