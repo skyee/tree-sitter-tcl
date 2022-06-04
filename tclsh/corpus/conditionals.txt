@@ -96,14 +96,14 @@ if {$x == 1} {
 (source_file
  (set_command
   name: (word)
-  value: (word))
+  value: (number_word))
 
  (if_command
   (if_clause
    condition: (braced_word
                (variable_substitution)
                (word)
-               (word))
+               (number_word))
    body: (block
           (command
            name: (word)
@@ -112,7 +112,7 @@ if {$x == 1} {
    condition: (braced_word
                (variable_substitution)
                (word)
-               (word))
+               (number_word))
    body: (block
           (command
            name: (word)
@@ -121,7 +121,7 @@ if {$x == 1} {
    condition: (braced_word
                (variable_substitution)
                (word)
-               (word))
+               (number_word))
    body: (block
           (command
            name: (word)

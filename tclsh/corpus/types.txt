@@ -54,3 +54,44 @@ set x fAlsE
   (set_command
     name: (word)
     value: (boolean_word)))
+
+===
+Numbers
+===
+
+set zero 0
+set positive 12345
+set negative -12345
+set octal 0123
+set hex 0xfed
+set binary 0b10110100
+set floating 1.1
+set scientific 1.0e10
+
+---
+
+(source_file
+  (set_command
+    name: (word)
+    value: (number_word))
+  (set_command
+    name: (word)
+    value: (number_word))
+  (set_command
+    name: (word)
+    value: (number_word))
+  (set_command
+    name: (word)
+    value: (number_word))
+  (set_command
+    name: (word)
+    value: (number_word))
+  (set_command
+    name: (word)
+    value: (number_word))
+  (set_command
+    name: (word)
+    value: (number_word))
+  (set_command
+    name: (word)
+    value: (number_word)))

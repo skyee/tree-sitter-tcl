@@ -13,13 +13,21 @@ module.exports = grammar(tclGrammar, {
     _word: ($, baseRule) => {
       baseRule = /** @type {ChoiceRule} */ (baseRule)
 
-      return choice($.boolean_word, ...baseRule.members)
+      return choice($.boolean_word, $.number_word, ...baseRule.members)
     },
 
     boolean_word: _ =>
       choice(
         ...['yes', 'on', 'true', 'no', 'off', 'false'].map(
           caseInsensitiveToken,
+        ),
+      ),
+
+    number_word: _ =>
+      token(
+        prec(
+          1,
+          choice(/-?\d+(\.\d+)?([Ee]-?\d+)?/, /-?0x[0-9A-Fa-f]+/, /-?0b[01]+/),
         ),
       ),
 
