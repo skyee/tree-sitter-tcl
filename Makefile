@@ -49,7 +49,7 @@ $(tcl_generated): $(common_sources) $(tcl_sources)
 
 .PHONY: generate-tclsh
 generate-tclsh: $(tclsh_generated)
-$(tclsh_generated): $(common_sources) $(tclsh_sources)
+$(tclsh_generated): $(common_sources) $(tcl_sources) $(tclsh_sources)
 	cd tclsh && $(TREE_SITTER) generate --no-bindings
 
 .PHONY: test-highlight
